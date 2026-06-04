@@ -1,24 +1,119 @@
 const container = document.getElementById("list");
+
+let data = [];
+let filter = "all";
+
 async function loadData() {
+  const saved = localStorage.getItem("extensions");
+
+  if (saved) {
+    data = JSON.parse(saved);
+    render();
+    return;
+  }
+
   try {
     const response = await fetch("data.json");
-    const data = await response.json();
+    data = await response.json();
 
-    data.forEach((item) => {
-      container.innerHTML += `
-        <div class="card" >
-        <img src="${item.logo}" alt="">
-         <div>
-          <h3>${item.name}</h3>
-          <p>${item.description}</p>
-          <p>${item.isActive}</p>
-        </div>
-         </div>
-      `;
-    });
+    saveToLocal();
+    render();
   } catch (error) {
     console.error(error);
   }
 }
 
 loadData();
+
+function saveToLocal() {
+  localStorage.setItem("extensions", JSON.stringify(data));
+}
+
+function render() {
+  container.innerHTML = "";
+
+  let filtered = data;
+
+  if (filter === "active") {
+    filtered = items.filter((item) => item.isActive);
+  }
+
+  if (filter === "inactive") {
+    filtered = items.filter((item) => !item.isActive);
+  }
+
+  filtered.forEach((item) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    card.innerHTML = `
+    <div class="card_style" >
+    <div class="img_name" >
+  <img src="${item.logo}" alt="">
+  <h3>${item.name}</h3>
+  <p>${item.description}</p>
+  </div>
+  <div>
+     <div>
+ <div class="remove_toggle" >
+    <button class="remove">remove</button>
+    <label class="switch">
+      <input type="checkbox" class="toggle" ${item.isActive ? "checked" : ""}>
+      <span class="slider"></span>
+    </label>
+     </div>
+  </div>
+`;
+
+    card.querySelector(".toggle").addEventListener("change", (e) => {
+      item.isActive = e.target.checked;
+      saveToLocal();
+      render();
+    });
+
+    card.querySelector(".remove").addEventListener("click", () => {
+      data = data.filter((i) => i !== item);
+      saveToLocal();
+      render();
+    });
+
+    container.append(card);
+  });
+}
+
+document.querySelector(".all").addEventListener("click", () => {
+  filter = "all";
+  render();
+});
+
+document.querySelector(".active").addEventListener("click", () => {
+  filter = "active";
+  render();
+});
+
+document.querySelector(".inactive").addEventListener("click", () => {
+  filter = "inactive";
+  render();
+});
+
+const themeBtn = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+
+let theme = localStorage.getItem("theme") || "light";
+
+if (theme === "dark") {
+  document.body.classList.add("dark");
+  themeIcon.src = "./assets/images/icon-sun.svg";
+}
+
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+
+  themeIcon.src = isDark
+    ? "./assets/images/icon-sun.svg"
+    : "./assets/images/icon-moon.svg";
+
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
