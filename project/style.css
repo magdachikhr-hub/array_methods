@@ -56,7 +56,6 @@ section.first {
   }
 }
 
-/* SWITCH WRAPPER */
 .switch {
   position: relative;
   display: inline-block;
@@ -64,14 +63,12 @@ section.first {
   height: 22px;
 }
 
-/* HIDE DEFAULT CHECKBOX */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* SLIDER BACKGROUND */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -84,7 +81,6 @@ section.first {
   border-radius: 34px;
 }
 
-/* THE CIRCLE */
 .slider::before {
   position: absolute;
   content: "";
@@ -97,7 +93,6 @@ section.first {
   border-radius: 50%;
 }
 
-/* WHEN CHECKED */
 .switch input:checked + .slider {
   background-color: hsl(3, 71%, 56%);
 }
@@ -126,16 +121,51 @@ body.dark header {
 
 div.img_name {
   display: flex;
+  gap: 10px;
+  p.description {
+    width: 300px;
+    margin-top: 8px;
+  }
 }
 
 div.card_style {
-  padding: 15px;
+  padding: 20px;
   background-color: white;
   border-radius: 15px;
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 15px;
+}
+
+div.remove_toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+button.remove,
+.active,
+.inactive,
+.all {
+  width: 70px;
+  height: 35px;
+  border-radius: 15px;
+  border: 1px solid gray;
+  background-color: white;
+}
+
+body.dark p.description {
+  color: #670000;
+}
+
+body.dark h3 {
+  color: #670000;
 }

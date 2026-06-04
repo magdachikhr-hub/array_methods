@@ -35,11 +35,11 @@ function render() {
   let filtered = data;
 
   if (filter === "active") {
-    filtered = items.filter((item) => item.isActive);
+    filtered = data.filter((item) => item.isActive);
   }
 
   if (filter === "inactive") {
-    filtered = items.filter((item) => !item.isActive);
+    filtered = data.filter((item) => !item.isActive);
   }
 
   filtered.forEach((item) => {
@@ -50,8 +50,10 @@ function render() {
     <div class="card_style" >
     <div class="img_name" >
   <img src="${item.logo}" alt="">
+   <div>
   <h3>${item.name}</h3>
-  <p>${item.description}</p>
+  <p class="description" >${item.description}</p>
+  </div>
   </div>
   <div>
      <div>
@@ -65,13 +67,17 @@ function render() {
   </div>
 `;
 
-    card.querySelector(".toggle").addEventListener("change", (e) => {
+    const toggle = card.querySelector(".toggle");
+
+    toggle.addEventListener("change", (e) => {
       item.isActive = e.target.checked;
       saveToLocal();
       render();
     });
 
-    card.querySelector(".remove").addEventListener("click", () => {
+    const remove = card.querySelector(".remove");
+
+    remove.addEventListener("click", () => {
       data = data.filter((i) => i !== item);
       saveToLocal();
       render();
@@ -81,17 +87,21 @@ function render() {
   });
 }
 
-document.querySelector(".all").addEventListener("click", () => {
+const all = document.querySelector(".all");
+const inactive = document.querySelector(".inactive");
+const active = document.querySelector(".active");
+
+all.addEventListener("click", () => {
   filter = "all";
   render();
 });
 
-document.querySelector(".active").addEventListener("click", () => {
+active.addEventListener("click", () => {
   filter = "active";
   render();
 });
 
-document.querySelector(".inactive").addEventListener("click", () => {
+inactive.addEventListener("click", () => {
   filter = "inactive";
   render();
 });
@@ -99,21 +109,23 @@ document.querySelector(".inactive").addEventListener("click", () => {
 const themeBtn = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 
+const darkIcon = themeIcon.dataset.dark;
+const lightIcon = themeIcon.dataset.light;
+
 let theme = localStorage.getItem("theme") || "light";
 
 if (theme === "dark") {
   document.body.classList.add("dark");
-  themeIcon.src = "./assets/images/icon-sun.svg";
 }
+
+themeIcon.src = theme === "dark" ? darkIcon : lightIcon;
 
 themeBtn.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 
   const isDark = document.body.classList.contains("dark");
 
-  themeIcon.src = isDark
-    ? "./assets/images/icon-sun.svg"
-    : "./assets/images/icon-moon.svg";
+  themeIcon.src = isDark ? darkIcon : lightIcon;
 
   localStorage.setItem("theme", isDark ? "dark" : "light");
 });
