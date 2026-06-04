@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png"> -->
+
+    <title>Browser extensions manager UI</title>
+    <script src="./main.js" defer></script>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      .attribution {
+        font-size: 0.6875rem;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header_flex">
+      <header>
+        <img src="./assets/images/logo.svg" alt="" />
+        <div class="light_dark">
+          <button class="btn">
+            <img class="moon" src="./assets/images/icon-moon.svg" alt="" />
+          </button>
+          <!-- <img src="./assets/images/icon-sun.svg" alt="" /> -->
+        </div>
+      </header>
+    </div>
+    <main>
+      <section class="first">
+        <h1>Extensions List</h1>
+        <div class="filter">
+          <button>All</button>
+          <button>Active</button>
+          <button>Inactive</button>
+        </div>
+      </section>
+      <section class="items">
+        <div id="list"></div>
+      </section>
+    </main>
+  </body>
+</html>
