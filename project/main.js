@@ -129,3 +129,12 @@ themeBtn.addEventListener("click", () => {
 
   localStorage.setItem("theme", isDark ? "dark" : "light");
 });
+
+const buttons = document.querySelectorAll(".filter button");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    buttons.forEach((btn) => btn.classList.remove("selected"));
+    button.classList.add("selected");
+  });
+});

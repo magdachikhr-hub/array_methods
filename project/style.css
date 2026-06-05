@@ -7,8 +7,15 @@
 body {
   background: linear-gradient(180deg, #ebf2fc 0%, #eef8f9 100%);
   min-height: 100vh;
-  padding: 20px 70px;
+  padding: 20px 70px 60px;
 }
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -129,20 +136,27 @@ div.img_name {
 }
 
 div.card_style {
-  padding: 20px;
+  padding: 30px 30px 20px;
   background-color: white;
   border-radius: 15px;
   width: 420px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+div.card {
+  min-height: 250px;
 }
 
 #list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 30px;
+  margin: 20px 0;
+  min-height: 100vh;
 }
 
 div.remove_toggle {
@@ -168,4 +182,22 @@ body.dark p.description {
 
 body.dark h3 {
   color: #670000;
+}
+
+.logo-dark {
+  display: none;
+}
+
+body.dark .logo-light {
+  display: none;
+}
+
+body.dark .logo-dark {
+  display: block;
+  width: 179px;
+  height: 41px;
+}
+.selected {
+  background-color: hsl(3, 77%, 44%);
+  color: white;
 }
